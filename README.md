@@ -43,7 +43,12 @@ chmod +x setup_cron.sh
 ./setup_cron.sh
 ```
 
-Uygulamayi ilk calistirdiginizda access token bilgisine sahip olmadigi icin tarayici uzerinden yonlendirme adresini isteyecek.
+Bu noktada cron job icerisinde interaktif olarak token alamayacaginiz icin uygulamayi bir kereligine terminal icerisinde calistirip url'i buradan ekleyin.
+```console
+go run cmd/main.go
+```
+
+Uygulamayi calistiginda access token bilgisine sahip olmadigi icin tarayici uzerinden yonlendirme adresini isteyecek.
 ```console
 > Retrieving Tesla order information...
 
@@ -59,4 +64,99 @@ Save current order data for future diff? (y/n):
 ```
 
 Buna "Y" cevabini verdikten sonra siparisinize ait bilgileri cekecektir.
+
+Bilgiler asagidaki gibi gozukecek.
+```console
+---------------------------------------------
+               GÜNCELLEMELER
+---------------------------------------------
+- Kilometre: 0.8
++ Kilometre: 0.9173260799999999
+
+---------------------------------------------
+             ARAÇ BİLGİLERİ
+---------------------------------------------
+- Model Kodu: MY
+- Araç Tipi: Yeni
+- VIN: XP........
+- Sipariş Durumu: Rezerve Edildi
+- Sipariş Alt Durumu: _Z
+- Seri: General Production
+- Trim Kodu: $....
+- Araç Konum Kodu: 4....
+- Konfigürasyon ID: 1..>...
+- Üretim Yılı: 2025
+- Sipariş Tarihi: 09.05.2025 18:45
+- Kilometre: 0.92 KM
+
+---------------------------------------------
+           MÜŞTERİ BİLGİLERİ
+---------------------------------------------
+- İsim: ......
+- Soyisim: ......
+- E-posta: ......
+- Telefon: ......
+
+Adres Bilgileri:
+- Adres: ......
+- Şehir: ......
+- İl: ......
+- Posta Kodu: ......
+
+---------------------------------------------
+             ÖDEME BİLGİLERİ
+---------------------------------------------
+- Toplam Tutar: ...... TL
+- Ödenen Tutar: ...... TL
+- Ön Ödeme Tutarı: ...... TL
+
+---------------------------------------------
+                KAYIT DURUMU
+---------------------------------------------
+- Kayıt Durumu: (bilgi yok)
+- Kayıt Tarihi: 09.05.2025 18:59
+
+---------------------------------------------
+                  TESLİMAT
+---------------------------------------------
+- Tahmini Teslimat Aralığı: 28 May - 11 June
+- Tahmini Varış Tarihi: 28.05.2025 03:00
+- Teslimat Randevusu: -
+- Teslimat Yeri: -
+
+---------------------------------------------
+                GÖREV DURUMU
+---------------------------------------------
+✗ Son Ödeme
+✓ Kayıt
+✓ Teslimat
+✗ Finansman
+✓ Servis Ziyareti
+✗ Sigorta
+✗ Zamanlama
+✗ Sipariş Onayı
+✓ Fabrika Teslim
+✗ Hazır Ürün
+✗ Son Fatura
+✗ Hazırlık
+✗ Takas
+✓ Gecikme Engeli
+
+---------------------------------------------
+             SİGORTA BİLGİSİ
+---------------------------------------------
+- Sigorta Durumu: IGNORE
+- Sigorta Şirketi: 
+---------------------------------------------
+
+
+> Sending message to Telegram bot...
+📦 Tesla sipariş bilgilerinde güncelleme var:
+
+➖ Kilometre: 0.8
+➕ Kilometre: 0.9173260799999999
+```
+
+Telegram mesaj ornegi:<br>
+![image](https://github.com/user-attachments/assets/9d60e29f-bead-43c9-8c20-0b0e4aa667ce)
 
