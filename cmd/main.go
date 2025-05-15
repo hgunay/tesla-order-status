@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 
@@ -124,4 +125,6 @@ func main() {
 	} else {
 		_ = bot.SendMessage("📦 Tesla sipariş bilgilerinde güncelleme yok.")
 	}
+
+	fmt.Println(utils.ColorText(fmt.Sprintf("\n> Finished processing orders at %s.\n", time.Now().Format("02.01.2006 15:04")), "94"))
 }
