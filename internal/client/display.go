@@ -15,15 +15,48 @@ func displayTaskStatus(tasks map[string]interface{}) {
 	fmt.Println("\n" + strings.Repeat("-", 45))
 	fmt.Println(utils.CenterText("GÖREV DURUMU", 45))
 	fmt.Println(strings.Repeat("-", 45))
-	for key, val := range tasks {
-		status := "✗"
+
+	orderedKeys := []string{
+		"CONTAINMENT_HOLD",
+		"DELIVERY_TASK",
+		"FACTORY_GATE",
+		"FINAL_INVOICE",
+		"FINAL_PAYMENT",
+		"FINANCING_TASK",
+		"FINISHED_GOODS",
+		"INSURANCE_TASK",
+		"ORDER_ACKNOWLEDGEMENT",
+		"REGISTRATION_TASK",
+		"SCHEDULING_TASK",
+		"SERVICE_VISIT",
+		"STAGING",
+		"TRADE_IN_TASK",
+	}
+
+	var successTasks, failureTasks []string
+	for _, key := range orderedKeys {
+		val, exists := tasks[key]
+		if !exists {
+			continue
+		}
+
 		m, ok := val.(map[string]interface{})
 		if ok {
-			if complete, ok := m["isBlocker"].(bool); ok && !complete {
-				status = "✓"
+			if blocker, ok := m["isBlocker"].(bool); ok && !blocker {
+				successTasks = append(successTasks, fmt.Sprintf("✅ %s", utils.TranslateGateCode(key)))
+			} else {
+				failureTasks = append(failureTasks, fmt.Sprintf("❌ %s", utils.TranslateGateCode(key)))
 			}
+		} else {
+			failureTasks = append(failureTasks, fmt.Sprintf("❌ %s", utils.TranslateGateCode(key)))
 		}
-		fmt.Printf("%s %s\n", status, utils.TranslateGateCode(key))
+	}
+
+	for _, line := range successTasks {
+		fmt.Println(line)
+	}
+	for _, line := range failureTasks {
+		fmt.Println(line)
 	}
 }
 
@@ -82,7 +115,7 @@ func DisplayAdditionalOrderDetails(details map[string]interface{}) {
 	fmt.Println("\n" + utils.ColorText("Adres Bilgileri:", "94"))
 	fmt.Printf("%s %v\n", utils.ColorText("- Adres:", "94"), utils.GetSafeString(address, "address1"))
 	fmt.Printf("%s %v\n", utils.ColorText("- Şehir:", "94"), utils.GetSafeString(address, "city"))
-	fmt.Printf("%s %v\n", utils.ColorText("- İl:", "94"), utils.GetSafeString(address, "stateProvince"))
+	fmt.Printf("%s %v\n", utils.ColorText("- İlce:", "94"), utils.GetSafeString(address, "stateProvince"))
 	fmt.Printf("%s %v\n", utils.ColorText("- Posta Kodu:", "94"), utils.GetSafeString(address, "zipCode"))
 
 	fmt.Println("\n" + strings.Repeat("-", 45))

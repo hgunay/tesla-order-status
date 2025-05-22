@@ -117,13 +117,13 @@ func main() {
 
 	bot := notify.NewTelegramBot(os.Getenv("TELEGRAM_BOT_TOKEN"), os.Getenv("TELEGRAM_CHAT_ID"))
 	if len(differencesTelegram) > 0 {
-		msg := "📦 Tesla sipariş bilgilerinde güncelleme var:\n\n" + strings.Join(differencesTelegram, "\n")
+		msg := "📦🚨 Tesla sipariş bilgilerinde güncelleme var:\n\n" + strings.Join(differencesTelegram, "\n")
 		fmt.Printf("\n> Sending message to Telegram bot...\n")
 		fmt.Println(utils.ColorText(msg, "92"))
 
 		_ = bot.SendMessage(msg)
 	} else {
-		_ = bot.SendMessage("📦 Tesla sipariş bilgilerinde güncelleme yok.")
+		_ = bot.SendMessage("📦🚫 Tesla sipariş bilgilerinde güncelleme yok.")
 	}
 
 	fmt.Println(utils.ColorText(fmt.Sprintf("\n> Finished processing orders at %s.\n", time.Now().Format("02.01.2006 15:04")), "94"))
